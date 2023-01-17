@@ -1,0 +1,16 @@
+[
+    {
+        "value": "client_report",
+        "label": "Client Report"
+    },
+
+    {
+        "value": "article",
+        "label": "Article"
+    },
+    {
+        "value": "monograf",
+        "label": "Monograf"
+    }
+    
+]
