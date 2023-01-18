@@ -102,12 +102,18 @@
                                                 <input type="text" class="form-control" id="titleInput"
                                                     placeholder="Enter the title">
                                                 <label for="titleInput">Title</label>
+                                                <div class="invalid-feedback">
+                                                    Title must be between 1 and 255 characters.
+                                                </div>
                                             </div>
 
                                             <div class="form-floating mb-3">
                                                 <textarea class="form-control" placeholder="Abstract"
                                                     id="abstractInput"></textarea>
                                                 <label for="abstractInput">Abstract</label>
+                                                <div class="invalid-feedback">
+                                                    Abstract is mandatory
+                                                </div>
                                             </div>
 
                                             <div class="row">
@@ -116,6 +122,9 @@
                                                         <input type="text" class="form-control" id="authorInput1"
                                                             placeholder="Author name">
                                                         <label for="authorInput1">Author name</label>
+                                                        <div class="invalid-feedback">
+                                                            You need at least one author, with a name between 1 and 50 characters.
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -155,8 +164,11 @@
                                     aria-labelledby="flush-headingThree" data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <div class="mb-3">
-                                            <label for="formFile" class="form-label">Upload file</label>
+                                            <label for="fileInput" class="form-label">Upload file</label>
                                             <input class="form-control" type="file" id="fileInput">
+                                            <div class="invalid-feedback">File can only be .pdf, doc or docx.
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
