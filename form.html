@@ -72,8 +72,8 @@
                                     <div class="accordion-body">
                                         <div class="form-floating">
                                             <select class="form-select" id="typeInput" required>
-                                                
-                                              
+
+
                                             </select>
                                             <label for="typeInput">Select an item type</label>
 
@@ -123,13 +123,15 @@
                                                             placeholder="Author name">
                                                         <label for="authorInput1">Author name</label>
                                                         <div class="invalid-feedback">
-                                                            You need at least one author, with a name between 1 and 50 characters.
+                                                            You need at least one author, with a name between 1 and 50
+                                                            characters.
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-1">
-                                                    <button class="btn btn-primary mb-1" id="addauthorbutton" type="button">
+                                                    <button class="btn btn-primary mb-1" id="addauthorbutton"
+                                                        type="button">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                             fill="currentColor" class="bi bi-plus-lg"
                                                             viewBox="0 0 16 16">
@@ -138,10 +140,13 @@
                                                         </svg>
                                                     </button>
 
-                                                    <button class="btn btn-danger" id="removeauthorbutton" type="button">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-                                                            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                                                          </svg>
+                                                    <button class="btn btn-danger" id="removeauthorbutton"
+                                                        type="button">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                                                        </svg>
                                                     </button>
                                                 </div>
                                             </div>
@@ -180,7 +185,32 @@
                 </div>
 
                 <div class="col-2"></div>
-                
+
+            </div>
+
+            <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                <li class="list-group-item" id="typeResult"></li>
+                                <li class="list-group-item" id="titleResult"></li>
+                                <li class="list-group-item" id="abstractResult"></li>
+                                <li class="list-group-item" id="authorResult"></li>
+                                <li class="list-group-item" id="fileResult"></li>
+                              </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <script src="index.js"></script>

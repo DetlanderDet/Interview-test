@@ -1,8 +1,8 @@
 class Ready {
     authorsNo = 1;
-    /**
-     * Methods
-     */
+
+    // Methods
+
     constructor(document) {
         this.document = document;
         this.submit = document.querySelector("#submit");
@@ -43,8 +43,9 @@ class Ready {
 
             const invalidFeedback = document.createElement("div");
             invalidFeedback.setAttribute("class", "invalid-feedback");
-            invalidFeedback.innerHTML = "Author name must be between 1 and 50 characters.";
-            
+            invalidFeedback.innerHTML =
+                "Author name must be between 1 and 50 characters.";
+
             newAuthorDiv.appendChild(newAuthorInput);
             newAuthorDiv.appendChild(newAuthorLabel);
             newAuthorDiv.appendChild(invalidFeedback);
@@ -55,36 +56,94 @@ class Ready {
     }
 
     submitForm() {
-        this.submitButton.addEventListener("click", (e) => {
+        this.submitButton.addEventListener("click", async (e) => {
             console.log(e);
             e.preventDefault();
             let result = this.validateForm();
             console.log(result);
+            if (result) {
+                let typeResult = this.document.querySelector("#typeResult");
+                typeResult.innerHTML = "type: " + this.typeSelect.value;
+
+                let titleResult = this.document.querySelector("#titleResult");
+                titleResult.innerHTML =
+                    "title: " + this.titleInput.value.trim();
+
+                let abstractResult =
+                    this.document.querySelector("#abstractResult");
+                abstractResult.innerHTML =
+                    "abstract: " + this.abstractInput.value.trim();
+
+                let authorResult = this.document.querySelector("#authorResult");
+                authorResult.innerHTML = "authors: ";
+                let authors = [];
+                this.authorInputs.forEach((authortInput) => {
+                    authors.push(authortInput.value.trim());
+                });
+                authorResult.innerHTML += authors.join(", ");
+
+                let fileResult = this.document.querySelector("#fileResult");
+                fileResult.innerHTML = "file: " + this.uploadInput.value.trim();
+
+                const resultModal = new bootstrap.Modal("#resultModal", {});
+                resultModal.show();
+
+                console.log(this.uploadInput.files[0]);
+                let formData = new FormData();
+                formData.append("file", this.uploadInput.files[0]);
+                formData.append("type", this.typeSelect.value);
+                formData.append("title", this.titleInput.value.trim());
+                formData.append("abstract", this.abstractInput.value.trim());
+                const authorsData = [];
+                this.authorInputs.forEach((authortInput) => {
+                    // we can use this syntax to send the data as an array
+                    // formData.append("author[]", authortInput.value.trim());
+                    // send the data as a string
+                    authorsData.push(authortInput.value.trim());
+                });
+                formData.append("authors", authorsData);
+                await fetch("/upload.js", {
+                    method: "POST",
+                    body: formData,
+                });
+            }
         });
     }
+    // Validate form
 
     validateForm() {
         let result = true;
-        if (this.titleInput.value.length > 0 && this.titleInput.value.length <= 255) {
+        if (
+            this.titleInput.value.length > 0 &&
+            this.titleInput.value.length <= 255 &&
+            this.titleInput.value.trim().length > 0
+        ) {
             this.titleInput.classList.add("is-valid");
             this.titleInput.classList.remove("is-invalid");
-        }else {
+        } else {
             this.titleInput.classList.add("is-invalid");
             this.titleInput.classList.remove("is-valid");
             result = false;
         }
 
-        if (this.abstractInput.value.length > 0){
+        if (
+            this.abstractInput.value.length > 0 &&
+            this.abstractInput.value.trim().length > 0
+        ) {
             this.abstractInput.classList.add("is-valid");
             this.abstractInput.classList.remove("is-invalid");
-        }else {
+        } else {
             this.abstractInput.classList.add("is-invalid");
             this.abstractInput.classList.remove("is-valid");
             result = false;
         }
 
         this.authorInputs.forEach((authorInput) => {
-            if (authorInput.value.length > 0 && authorInput.value.length <= 50) {
+            if (
+                authorInput.value.length > 0 &&
+                authorInput.value.length <= 50 &&
+                authorInput.value.trim().length > 0
+            ) {
                 authorInput.classList.add("is-valid");
                 authorInput.classList.remove("is-invalid");
             } else {
@@ -96,21 +155,18 @@ class Ready {
 
         // Allowing file type
         const allowedExtensions = /(\.pdf|\.doc|\.docx)$/i;
-    
-        if(!allowedExtensions.exec(this.uploadInput.value)){
+
+        if (!allowedExtensions.exec(this.uploadInput.value)) {
             this.uploadInput.classList.add("is-invalid");
             this.uploadInput.classList.remove("is-valid");
             result = false;
-        } else{
+        } else {
             this.uploadInput.classList.add("is-valid");
             this.uploadInput.classList.remove("is-invalid");
         }
 
         return result;
     }
-    /*
-     *  TODO: New method for creating the validation
-     */
 
     removeAuthorInput() {
         const button = this.document.querySelector("#removeauthorbutton");
@@ -130,9 +186,8 @@ class Ready {
         });
     }
 
-    /**
-     * Gets the select option for step 1
-     */
+    // Gets the select option for step 1
+
     step1() {
         this.getStep1data().then((step1response) => {
             step1response.forEach((item) => {
